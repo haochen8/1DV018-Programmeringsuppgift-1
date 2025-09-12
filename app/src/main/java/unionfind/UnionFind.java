@@ -1,4 +1,4 @@
-package app.src.main.java.unionfind;
+package unionfind;
 
 /**
  * Interface for Union-Find data structure.
