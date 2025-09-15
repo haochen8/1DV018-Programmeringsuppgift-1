@@ -6,7 +6,7 @@ import unionfind.QuickFind;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class QuickFindTest {
+public class UnionFindTest {
 
   @Test
   public void testConstructorValid() {
