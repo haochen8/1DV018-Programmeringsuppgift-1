@@ -3,6 +3,7 @@ package unionfindtest;
 import org.junit.jupiter.api.Test;
 
 import unionfind.QuickFind;
+import unionfind.QuickUnion;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -92,5 +93,26 @@ public class UnionFindTest {
     s = uf.toString();
     assertTrue(s.contains("components=2"));
     assertTrue(s.contains("[1, 1, 2]"));
+  }
+
+  @Test
+  public void testQuickUnionBasic() {
+    QuickUnion qu = new QuickUnion(5);
+    assertEquals(5, qu.count());
+    qu.union(0, 1);
+    assertTrue(qu.connected(0, 1));
+    assertEquals(4, qu.count());
+    qu.union(1, 2);
+    assertTrue(qu.connected(0, 2));
+    assertEquals(3, qu.count());
+    qu.union(3, 4);
+    assertTrue(qu.connected(3, 4));
+    assertEquals(2, qu.count());
+    qu.union(2, 4);
+    assertTrue(qu.connected(0, 4));
+    assertEquals(1, qu.count());
+    qu.union(0, 4);
+    assertEquals(1, qu.count());
+    assertTrue(qu.connected(0, 4));
   }
 }
