@@ -14,7 +14,7 @@ public class Stopwatch {
     return System.nanoTime() - start;
   }
 
-  public double elapsedMilliseconds() {
+  public double elapsedMillis() {
     return elapsedNanoTime() / 1_000_000.0;
   }
 }
