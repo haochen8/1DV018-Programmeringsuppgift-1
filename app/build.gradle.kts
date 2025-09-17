@@ -41,3 +41,19 @@ tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
+
+tasks.named<JavaExec>("run") {
+    // Forward relevant system properties to the application.
+    val keys = listOf(
+        "scenario", "Ns", "unionRatio", "opsPerN", "opsFactor",
+        "reps", "seeds", "printHeader", "gcBetweenReps"
+    )
+    keys.forEach { k ->
+        val fromP = project.findProperty(k)?.toString()
+        val fromD = System.getProperty(k)
+        val v = fromP ?: fromD
+        if (!v.isNullOrBlank()) {
+            systemProperty(k, v)
+        }
+    }
+}

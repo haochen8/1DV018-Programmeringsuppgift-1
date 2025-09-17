@@ -1,26 +1,31 @@
-// Balanced mix
 scenario,variant,N,ops,union_ratio,seed,rep,ms,ms_per_op
-balanced,QuickFind,1000,50000,0.50,42,median,1.022,0.000020432
-balanced,QuickUnion,1000,50000,0.50,42,median,1.489,0.000029777
-balanced,QuickFind,10000,50000,0.50,42,median,24.373,0.000487459
-balanced,QuickUnion,10000,50000,0.50,42,median,0.779,0.000015582
-balanced,QuickFind,100000,50000,0.50,42,median,426.833,0.008536666
-balanced,QuickUnion,100000,50000,0.50,42,median,0.415,0.000008290
+balanced,QuickFind,1000,50000,0.50,42,median,1.065,0.000021297
+balanced,QuickUnion,1000,50000,0.50,42,median,1.449,0.000028988
+balanced,QuickFind,10000,50000,0.50,42,median,26.353,0.000527057
+balanced,QuickUnion,10000,50000,0.50,42,median,0.794,0.000015878
+balanced,QuickFind,100000,50000,0.50,42,median,426.014,0.008520284
+balanced,QuickUnion,100000,50000,0.50,42,median,0.444,0.000008878
 
-// Scale N
-scenario,variant,N,ops,union_ratio,seed,rep,ms,ms_per_op
-balanced,QuickFind,1000,50000,0.50,42,median,0.987,0.000019740
-balanced,QuickUnion,1000,50000,0.50,42,median,1.440,0.000028800
-balanced,QuickFind,10000,50000,0.50,42,median,25.178,0.000503551
-balanced,QuickUnion,10000,50000,0.50,42,median,0.788,0.000015753
-balanced,QuickFind,100000,50000,0.50,42,median,420.459,0.008409183
-balanced,QuickUnion,100000,50000,0.50,42,median,0.415,0.000008306
+scale_in_N,QuickFind,1000,10000,0.50,42,median,0.933,0.000093313
+scale_in_N,QuickUnion,1000,10000,0.50,42,median,0.252,0.000025217
+scale_in_N,QuickFind,2000,20000,0.50,42,median,1.370,0.000068506
+scale_in_N,QuickUnion,2000,20000,0.50,42,median,0.506,0.000025306
+scale_in_N,QuickFind,5000,50000,0.50,42,median,6.558,0.000131161
+scale_in_N,QuickUnion,5000,50000,0.50,42,median,0.638,0.000012760
+scale_in_N,QuickFind,10000,100000,0.50,42,median,25.723,0.000257231
+scale_in_N,QuickUnion,10000,100000,0.50,42,median,1.317,0.000013171
+scale_in_N,QuickFind,20000,200000,0.50,42,median,104.615,0.000523073
+scale_in_N,QuickUnion,20000,200000,0.50,42,median,2.532,0.000012662
+scale_in_N,QuickFind,50000,500000,0.50,42,median,915.999,0.001831999
+scale_in_N,QuickUnion,50000,500000,0.50,42,median,7.309,0.000014618
+scale_in_N,QuickFind,100000,1000000,0.50,42,median,4044.631,0.004044631
+scale_in_N,QuickUnion,100000,1000000,0.50,42,median,15.515,0.000015515
 
-// Mix-sensitivity
-scenario,variant,N,ops,union_ratio,seed,rep,ms,ms_per_op
-balanced,QuickFind,1000,50000,0.50,42,median,1.014,0.000020284
-balanced,QuickUnion,1000,50000,0.50,42,median,1.433,0.000028653
-balanced,QuickFind,10000,50000,0.50,42,median,24.753,0.000495051
-balanced,QuickUnion,10000,50000,0.50,42,median,0.781,0.000015615
-balanced,QuickFind,100000,50000,0.50,42,median,423.082,0.008461634
-balanced,QuickUnion,100000,50000,0.50,42,median,0.422,0.000008430
+mix_sensitivity,QuickFind,100000,1000000,0.10,42,median,3193.325,0.003193325
+mix_sensitivity,QuickUnion,100000,1000000,0.10,42,median,12.122,0.000012122
+
+mix_sensitivity,QuickFind,100000,1000000,0.50,42,median,4090.631,0.004090631
+mix_sensitivity,QuickUnion,100000,1000000,0.50,42,median,16.964,0.000016964
+
+mix_sensitivity,QuickFind,100000,1000000,0.90,42,median,4092.595,0.004092595
+mix_sensitivity,QuickUnion,100000,1000000,0.90,42,median,12.525,0.000012525
