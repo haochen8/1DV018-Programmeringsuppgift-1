@@ -1,7 +1,6 @@
 package unionfindtest;
 
 import org.junit.jupiter.api.Test;
-
 import unionfind.QuickFind;
 import unionfind.QuickUnion;
 
