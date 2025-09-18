@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * A class to solve the 3-sum problem.
  */
-public class ThreeSum {
+public final class ThreeSum {
   private ThreeSum() {
   }
 
@@ -19,7 +19,7 @@ public class ThreeSum {
   public static int[] findThreeSum(int[] numbers, int target) {
 
     if (numbers == null) {
-      throw new IllegalArgumentException("Input array must not be null");
+      throw new IllegalArgumentException("Numbers must not be null");
     }
     if (numbers.length < 3) {
       return null;
