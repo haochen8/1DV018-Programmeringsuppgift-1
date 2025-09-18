@@ -8,14 +8,11 @@ import java.util.*;
 
 public class BruteForceTwoPointersTest {
 
-  private ThreeSumBruteForce bruteForce = new ThreeSumBruteForce();
-  private ThreeSumTwoPointer twoPointer = new ThreeSumTwoPointer();
-
   @Test
   void testEmptyArray() {
     int[] nums = {};
-    assertTrue(bruteForce.solveAllZero(nums).isEmpty());
-    assertTrue(twoPointer.solveAllZero(nums).isEmpty());
+    assertTrue(ThreeSumBruteForce.solveAllZero(nums).isEmpty());
+    assertTrue(ThreeSumTwoPointer.solveAllZero(nums).isEmpty());
   }
 
   @Test
@@ -25,8 +22,8 @@ public class BruteForceTwoPointersTest {
         new int[] { -1, -1, 2 },
         new int[] { -1, 0, 1 });
 
-    assertTripletsEqual(expectedTriples, bruteForce.solveAllZero(nums));
-    assertTripletsEqual(expectedTriples, twoPointer.solveAllZero(nums));
+    assertTripletsEqual(expectedTriples, ThreeSumBruteForce.solveAllZero(nums));
+    assertTripletsEqual(expectedTriples, ThreeSumTwoPointer.solveAllZero(nums));
   }
 
   @Test
@@ -34,15 +31,15 @@ public class BruteForceTwoPointersTest {
     int[] nums = { 0, 0, 0, 0 };
     List<int[]> expectedTriples = Arrays.asList(new int[] { 0, 0, 0 });
 
-    assertTripletsEqual(expectedTriples, bruteForce.solveAllZero(nums));
-    assertTripletsEqual(expectedTriples, twoPointer.solveAllZero(nums));
+    assertTripletsEqual(expectedTriples, ThreeSumBruteForce.solveAllZero(nums));
+    assertTripletsEqual(expectedTriples, ThreeSumTwoPointer.solveAllZero(nums));
   }
 
   @Test
   void testNoPossibleSum() {
     int[] nums = { 1, 2, 3, 4, 5 };
-    assertTrue(bruteForce.solveAllZero(nums).isEmpty());
-    assertTrue(twoPointer.solveAllZero(nums).isEmpty());
+    assertTrue(ThreeSumBruteForce.solveAllZero(nums).isEmpty());
+    assertTrue(ThreeSumTwoPointer.solveAllZero(nums).isEmpty());
   }
 
   // Helper method to compare triplets

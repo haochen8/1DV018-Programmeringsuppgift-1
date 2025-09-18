@@ -6,7 +6,7 @@ import java.util.*;
  * A class to solve the 3-sum problem using the two-pointer technique.
  */
 public final class ThreeSumTwoPointer {
-  private ThreeSumTwoPointer() {
+  public ThreeSumTwoPointer() {
   }
 
   // Reuses the efficient implementation from ThreeSum class

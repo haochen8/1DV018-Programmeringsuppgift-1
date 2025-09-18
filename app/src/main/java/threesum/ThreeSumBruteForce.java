@@ -10,7 +10,7 @@ import java.util.Set;
  * A brute-force implementation to solve the 3-sum problem.
  */
 public final class ThreeSumBruteForce {
-  private ThreeSumBruteForce() {
+  public ThreeSumBruteForce() {
   }
 
   /**
@@ -61,7 +61,7 @@ public final class ThreeSumBruteForce {
     return null;
   }
 
-  public static List<int[]> solveAllZeroSum(int[] numbers) {
+  public static List<int[]> solveAllZero(int[] numbers) {
     if (numbers == null) {
       throw new IllegalArgumentException("Numbers must not be null");
     }
