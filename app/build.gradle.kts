@@ -42,18 +42,35 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
+// Modified helper function
+fun createSystemProperties(project: Project, keys: List<String>): Map<String, String> {
+    return keys.mapNotNull { k ->
+        val value = (project.findProperty(k) ?: System.getProperty(k))?.toString()
+        if (!value.isNullOrBlank()) k to value else null
+    }.toMap()
+}
+
 tasks.named<JavaExec>("run") {
-    // Forward relevant system properties to the application.
     val keys = listOf(
         "scenario", "Ns", "unionRatio", "opsPerN", "opsFactor",
         "reps", "seeds", "printHeader", "gcBetweenReps"
     )
-    keys.forEach { k ->
-        val fromP = project.findProperty(k)?.toString()
-        val fromD = System.getProperty(k)
-        val v = fromP ?: fromD
-        if (!v.isNullOrBlank()) {
-            systemProperty(k, v)
-        }
-    }
+    systemProperties(createSystemProperties(project, keys))
+}
+
+tasks.register<JavaExec>("runThreeSumBench") {
+    group = "application"
+    description = "Run ThreeSumBenchmark with forwarded system properties"
+    mainClass.set("bench.ThreeSumBenchmark")
+    classpath = sourceSets["main"].runtimeClasspath
+
+    val keys = listOf(
+        // common
+        "scenario", "printHeader", "gcBetweenReps", "reps", "seeds",
+        // dataset
+        "minVal", "maxVal", "dupRatio",
+        // sizes
+        "NsBF", "NsTP"
+    )
+    systemProperties(createSystemProperties(project, keys))
 }
