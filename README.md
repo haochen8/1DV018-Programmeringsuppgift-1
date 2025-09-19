@@ -1,29 +1,106 @@
-# 1DV018-Programming Assignment 1
+# Union-Find and Three-Sum programming experiment
 
-## Task 3 - Analyze and present results from Union-Find experiments
-The results of the experiments are presented in the file `uf_results.csv`. The file contains the results of running the union-find algorithms with different parameters. Each line in the file represents a single experiment and contains the following fields:
+## Overview
+This repository contains the implementation and analysis of two classic algorithms: Union-Find and Three-Sum
+- Union–Find: Quick-Find, Quick-Union (+ benchmarks)
+- Three-Sum: Brute-force, Two-pointer (+ benchmarks)
+Tested with JUnit 5.
 
-- `scenario`: The scenario under which the experiment was run (e.g., balanced, scale_in_N, mix_sensitivity).
-- `variant`: The variant of the union-find algorithm used (e.g., QuickFind, QuickUnion).
-- `N`: The size of the input (number of elements).
-- `ops`: The number of union/find operations performed.
-- `union_ratio`: The ratio of union operations to find operations.
-- `seed`: The random seed used for the experiment.
-- `rep`: The repetition number of the experiment.
-- `ms`: The total time taken for the experiment (in milliseconds).
-- `ms_per_op`: The average time per operation (in milliseconds).
-The results are organized into three main sections based on the scenarios:
-1. Balanced: Experiments with a balanced ratio of union and find operations (50% union):
-   - Parameters: N = 1000, 10000, 100000; ops = 50000; union_ratio = 0.50;
-   - Observations: QuickFind's time increases significantly with larger N, while QuickUnion remains efficient almost flat.
-   - Conclusion: QuickUnion is more scalable for larger datasets with balanced operations.  
-2. Scale in N: Experiments that vary the size of the input (N) while keeping other parameters constant.
-    - Parameters: N = 1k, 2k, 5k, 10k, 20k, 50k, 100k; ops = 10 * N; union_ratio = 0.50;
-    - Observations: QuickFind's time increases linearly with N, while QuickUnion's time increases proportionally to ops and remains constant.
-    - Conclusion: QuickUnion is more efficient for larger datasets, while QuickFind becomes impractical as N increases.
-3. Mix sensitivity: Experiments that vary the union ratio to analyze the sensitivity of the algorithms to different mixes of operations.
-    - Parameters: N = 100k; ops = 1M; union_ratio = 0.10, 0.50, 0.90;
-    - Observations: QuickFind's time increases with higher union ratios, while QuickUnion remains relatively stable.
-    - Conclusion: Quick-Find is very sensitive to the mix of operations, while Quick-Union is more robust across different mixes.
+## Prerequisites
+- Java 21 or higher
+- Gradle 7.6 or higher
 
-Overall, on random datasets, Quick-Union outperforms Quick-Find in terms of scalability and efficiency, especially for larger datasets and varying operation mixes. Quick-Find is also sensitive to the mix of operations, making it less suitable for scenarios with a high ratio of union operations. The results highlight the importance of choosing the right algorithm based on the expected workload and dataset size.
+## Build and test
+To build the project and run tests, use the following command:
+```
+./gradlew clean test
+```
+
+## Run: Union-Find benchmark
+By default, `./gradlew run` executes `bench.UFBenchmark`.
+Common Properties (pass with ``-Pkey=value``):
+- `-Pscenario`: Scenario name (default: `balanced`)
+- `-PNs`: Sizes of N, comma-separated (default: `1000,10000,100000`)
+- `-PopsPerN`: Number of operations (default: `50000`)
+- `-PunionRatio`: Ratio of union operations (default: `0.50`)
+- `-PopsFactor`: Factor of ops relative to N (default: `0`, means not used)
+- `-Preps`: Number of repetitions (default: `3`)
+- `-PprintHeader`: Output CSV file (default: `uf_results.csv`)
+
+Example:
+```
+Balanced mix:
+./gradlew -q run \
+  -Pscenario=balanced \
+  -PNs=1000,10000,100000 \
+  -PunionRatio=0.5 \
+  -PopsPerN=50000 \
+  -Preps=5 \
+  --console=plain > uf_results.csv
+```
+Scale with N (ops = 10 * N):
+```
+./gradlew -q run \
+  -Pscenario=scale_in_N \
+  -PNs=1000,2000,5000,10000,20000,50000,100000,200000 \
+  -PunionRatio=0.5 \
+  -PopsFactor=10 \
+  -Preps=5 \
+  -PprintHeader=false \
+  --console=plain >> uf_results.csv
+```
+Mix sensitivity (N=100k, ops=1M):
+```
+./gradlew -q run \
+  -Pscenario=mix_sensitivity \
+  -PNs=100000 \
+  -PunionRatio=0.1,0.5,0.9 \
+  -PopsPerN=1000000 \
+  -Preps=5 \
+  -PprintHeader=false \
+  --console=plain >> uf_results.csv
+```
+## Run: Three-Sum benchmark
+Use the dedicated task `runThreeSumBench` (configured in `build.gradle.kts`) which runs `bench.ThreeSumBenchmark`.
+
+Common: `scenario, printHeader, gcBetweenReps, reps, seeds`
+
+Data generation: `minVal, maxVal, dupRatio (0..1; higher ⇒ more duplicates)`
+
+Sizes:
+
+`NsBF` (csv ints): N-values for Brute Force
+
+`NsTP` (csv ints): N-values for Two-Pointer
+
+Examples:
+Random uniform data:
+```
+./gradlew -q runThreeSumBench \
+  -Pscenario=random_uniform \
+  -PNsBF=50,100,150,200,300 \
+  -PNsTP=1000,2000,5000,10000,20000 \
+  -PminVal=-1000 -PmaxVal=1000 \
+  -Preps=5 -Pseeds=42 \
+  --console=plain >> threesum_results.csv
+```
+Duplicates-heavy data:
+```
+./gradlew -q runThreeSumBench \
+  -Pscenario=duplicate_heavy \
+  -PNsBF=50,100,150,200,300 \
+  -PNsTP=1000,2000,5000,10000,20000,50000 \
+  -PminVal=-100 -PmaxVal=100 \
+  -PdupRatio=0.8 \
+  -Preps=5 -Pseeds=42 \
+  -PprintHeader=false \
+  --console=plain >> threesum_results.csv
+```
+
+## Output format
+- UFBenchmark: `scenario,variant,N,ops,union_ratio,seed,rep,ms,ms_per_op`
+- ThreeSumBenchmark: `scenario,variant,N,min,max,dupRatio,seed,rep,ms,n2_norm,n3_norm,num_triplets`
+Where:
+- `ms`: median wall time for the run
+- `n2_norm = ms / N^2` (≈ constant for Two-Pointer),
+- `n3_norm = ms / N^3` (≈ constant for Brute Force).
