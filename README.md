@@ -42,7 +42,7 @@ Scale with N (ops = 10 * N):
 ```
 ./gradlew -q run \
   -Pscenario=scale_in_N \
-  -PNs=1000,2000,5000,10000,20000,50000,100000,200000 \
+  -PNs=1000,2000,5000,10000,20000,50000 \
   -PunionRatio=0.5 \
   -PopsFactor=10 \
   -Preps=5 \
@@ -54,7 +54,7 @@ Mix sensitivity (N=100k, ops=1M):
 ./gradlew -q run \
   -Pscenario=mix_sensitivity \
   -PNs=100000 \
-  -PunionRatio=0.1,0.5,0.9 \
+  -PunionRatio=0.5 \
   -PopsPerN=1000000 \
   -Preps=5 \
   -PprintHeader=false \
